@@ -10,4 +10,7 @@ class StarbucksController extends Controller
     public function home(){
          return view('admin.starbucks.home');
     }
+    public function review(){
+        return view('admin.starbucks.review');
+    }
 }

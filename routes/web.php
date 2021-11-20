@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('admin/starbucks/home','Admin\StarbucksController@home');
+Route::get('admin/starbucks/review','Admin\StarbucksController@review');
