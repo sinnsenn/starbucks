@@ -57,6 +57,7 @@ class StarbucksController extends Controller
   {
       // Starbucks Modelからデータを取得する
       $starbucks = Starbucks::find($request->id);
+      
       if (empty($starbucks)) {
         abort(404);    
       }

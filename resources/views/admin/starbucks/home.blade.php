@@ -10,7 +10,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h2>starbucks</h2>
+                <h1>starbucks</h1>
+                <h2>新作のフラペチーノ</h2>
+                <img src={{ secure_asset('images/sinnsaku.jpg') }}>
             </div>
         </div>
     </div>

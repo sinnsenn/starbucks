@@ -30,6 +30,6 @@ class CreatestarbucksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('starbucks');
     }
 }
