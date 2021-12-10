@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Starbucks;
+use App\Starbucksdrink;
 
 class StarbucksController extends Controller
 {
@@ -37,21 +38,7 @@ class StarbucksController extends Controller
       $starbucks->fill($form);
       $starbucks->save();
 
-      return redirect('admin/starbucks/home');
-  }
-
-  // 以下を追記
-  public function index(Request $request)
-  {
-      $cond_title = $request->cond_title;
-      if ($cond_title != '') {
-          // 検索されたら検索結果を取得する
-          $posts = Starbucks::where('title', $cond_title)->get();
-      } else {
-          // それ以外はすべてのニュースを取得する
-          $posts = Starbucks::all();
-      }
-      return view('admin.starbucks.index',[ 'posts' => $posts, 'cond_title' => $cond_title]);
+      return redirect('admin.starbucks.index');
   }
   public function edit(Request $request)
   {
@@ -87,15 +74,83 @@ public function update(Request $request)
       unset($starbucks_form['_token']);
       // 該当するデータを上書きして保存する
       $starbucks->fill($starbucks_form)->save();
-      return redirect('admin/starbucks');
+      return redirect('starbucks');
   } 
 public function delete(Request $request)
   {
-      // 該当するNews Modelを取得
+      // 該当するStarbucks Modelを取得
       $starbucks = Starbucks::find($request->id);
       // 削除する
       $starbucks->delete();
       return redirect('admin/starbucks/');
   }
+public function reviewdrink()
+{
+    return view('admin/starbucks/reviewdrink');
+}
+public function createdrink(Request $request)
+  {
+      // Validationを行う
+      $this->validate($request, Starbucksdrink::$rules);
+      $starbucksdrink = new Starbucksdrink();
+      $form = $request->all();
+     
+
+      // formに画像があれば、保存する
+      if (isset($form['image'])) {
+        $path = $request->file('image')->store('public/image');
+        $starbucksdrink->image_path = basename($path);
+      } else {
+          $starbucksdrink->image_path = null;
+      }
+
+      unset($form['_token']);
+      unset($form['image']);
+      // データベースに保存する
+      $starbucksdrink->fill($form);
+      $starbucksdrink->save();
+
+      return redirect('starbucksdrink');
+  }
+public function editdrink(Request $request)
+  {
+      // Starbucksdrink Modelからデータを取得する
+      $starbucksdrink = Starbucksdrink::find($request->id);
+      
+      if (empty($starbucksdrink)) {
+        abort(404);    
+      }
+      return view('admin.starbucks.editdrink', ['starbucksdrink_form' => $starbucksdrink]);
+  }
+public function updatedrink(Request $request)
+{
+     $this->validate($request, Starbucks::$rules);
+      // Starbucksdrink Modelからデータを取得する
+      $starbucksdrink = Starbucksdrink::find($request->id);
+      // 送信されてきたフォームデータを格納する
+      $starbucksdrink_form = $request->all();
+      if ($request->remove == 'true') {
+          $starbucksdrink_form['image_path'] = null;
+      } elseif ($request->file('image')) {
+          $path = $request->file('image')->store('public/image');
+          $starbucksdrink_form['image_path'] = basename($path);
+      } else {
+          $starbucksdrink_form['image_path'] = $starbucksdrink->image_path;
+      }
+
+      unset($starbucksdrink_form['image']);
+      unset($starbucksdrink_form['remove']);
+      unset($starbucksdrink_form['_token']);
+      // 該当するデータを上書きして保存する
+      $starbucksdrink->fill($starbucksdrink_form)->save();
+      return redirect('starbucksdrink');
+}
+public function deletedrink(Request $request)
+{
+   $starbucksdrink = Starbucksdrink::find($request->id);
+      // 削除する
+      $starbucksdrink->delete();
+      return redirect('starbucksdrink'); 
+}
 }
 

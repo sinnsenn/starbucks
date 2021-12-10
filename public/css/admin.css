@@ -39,3 +39,16 @@ body {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
+.row {
+  color: #ff8c00;
+  font-weight: 900;
+}
+
+.itirann {
+  margin-bottom: 50px;
+}
+
+.home {
+  background-image: url(/images/Starbucks-Logo.jpg?031c9a9122f6a6eb08f034a9faf2df4f);
+}
+

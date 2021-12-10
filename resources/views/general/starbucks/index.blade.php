@@ -7,9 +7,6 @@
             <h2>店舗一覧</h2>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <a href="{{ action('Admin\StarbucksController@create') }}" role="button" class="btn btn-primary">新規作成</a>
-            </div>
             <div class="col-md-8">
                 <form action="{{ action('Admin\StarbucksController@index') }}" method="get">
                     <div class="form-group row">
@@ -27,13 +24,40 @@
         </div>
         <div class="row">
             <div class="admin-starbucks col-md-12 mx-auto">
+                 <div class="row">
+            <div class="posts col-md-8 mx-auto mt-3">
+                @foreach($posts as $post)
+                    <div class="post">
+                        <div class="row">
+                            <div class="text col-md-6">
+                                <div class="date">
+                                    {{ $post->updated_at->format('Y年m月d日') }}
+                                </div>
+                                <div class="title">
+                                    {{ str_limit($post->title, 150) }}
+                                </div>
+                                <div class="body mt-3">
+                                    {{ str_limit($post->body, 1500) }}
+                                </div>
+                            </div>
+                            <div class="image col-md-6 text-right mt-4">
+                                @if ($post->image_path)
+                                    <img src="{{ asset('storage/image/' . $post->image_path) }}">
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <hr color="#c0c0c0">
+                @endforeach
+            </div>
+        </div>
                 <div class="row">
                     <table class="table table-dark">
                         <thead>
                             <tr>
                                 <th width="10%">ID</th>
-                                <th width="20%">タイトル</th>
-                                <th width="50%">本文</th>
+                                <th width="20%">店舗名</th>
+                                <th width="50%">感想</th>
                                 <th width="10%">操作</th>
                             </tr>
                         </thead>
