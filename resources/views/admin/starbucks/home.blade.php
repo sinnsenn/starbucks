@@ -7,7 +7,7 @@
 
 {{-- admin.blade.phpの@yield('content')に以下のタグを埋め込む --}}
 @section('content')
-    <div class="container home" name="ballImage">
+    <div class="container home">
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h1>starbucks</h1>
@@ -21,6 +21,10 @@
                     <div class="sinnki">
                         <li><a href={{ action('Admin\StarbucksController@review') }}>店舗のレビュー新規作成</li>
                         <li><a href={{ action('Admin\StarbucksController@reviewdrink') }}>ドリンクのレビュー新規作成</li>
+                    </div>
+                    <div class="hennsyuu">
+                        <li><a href={{ action('Admin\StarbucksController@index') }}>店舗のレビュー編集画面</li>
+                        <li><a href={{ action('Admin\StarbucksController@indexdrink') }}>ドリンクのレビュー編集画面</li>
                     </div>
                 </ul>
             </div>

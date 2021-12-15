@@ -9,27 +9,34 @@ class StarbucksController extends Controller
 {
   public function home()
   {
-      return view('admin.starbucks.home');
+    return view('admin.starbucks.home');
   }
+  
   public function review()
   {
-      return view('admin.starbucks.review');
+    return view('admin.starbucks.review');
   }
 
+  public function index(Request $request)
+  {
+    $posts = Starbucks::all();
+    
+    return view('admin.starbucks.index',[ 'posts' => $posts]);
+  }
+  
   public function create(Request $request)
   {
       // Validationを行う
       $this->validate($request, Starbucks::$rules);
       $starbucks = new Starbucks();
       $form = $request->all();
-     
 
       // formに画像があれば、保存する
       if (isset($form['image'])) {
         $path = $request->file('image')->store('public/image');
         $starbucks->image_path = basename($path);
       } else {
-          $starbucks->image_path = null;
+        $starbucks->image_path = null;
       }
 
       unset($form['_token']);
@@ -40,6 +47,7 @@ class StarbucksController extends Controller
 
       return redirect('admin.starbucks.index');
   }
+  
   public function edit(Request $request)
   {
       // Starbucks Modelからデータを取得する
@@ -88,6 +96,12 @@ public function reviewdrink()
 {
     return view('admin/starbucks/reviewdrink');
 }
+ public function indexdrink(Request $request)
+  {
+    $posts = Starbucksdrink::all();
+    
+    return view('admin.starbucks.indexdrink',[ 'posts' => $posts]);
+  }
 public function createdrink(Request $request)
   {
       // Validationを行う
