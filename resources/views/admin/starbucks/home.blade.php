@@ -10,8 +10,8 @@
     <div class="container home">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <h1>starbucks</h1>
-                <h2>新作のフラペチーノ</h2>
+                <h1 class="font-weight-bold">starbucks</h1>
+                <h2 class="font-weight-bold">新作のフラペチーノ</h2>
                 <img src={{ secure_asset('images/sinnsaku.jpg') }}>
                 <ul>
                     <div class="itirann">
